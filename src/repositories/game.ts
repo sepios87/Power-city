@@ -1,6 +1,7 @@
 import { GameMap } from "../entities/gameMap";
 import { HudRepository } from "./hud";
 import { PowerElement } from "../entities/powerElement";
+import PipeElement from "../entities/pipe";
 
 export class GameRepository {
 
@@ -14,13 +15,18 @@ export class GameRepository {
     public maxPowerNeeded: number = 0;
     public numberCitizens: number = 10;
     private hourlyFluctuation: number = 1;
+    public pipeElement: PipeElement;
 
     public constructor(coins: number, map: GameMap) {
         this.coins = coins;
         this.map = map;
+        this.pipeElement = PipeElement.getInstance();
+
+        setInterval(() => this.incrementHour(), 3000);
     }
 
     public incrementHour() {
+        console.log("Incrementing hour");
         this.time = (this.time + 1) % 24;
         if (this.time === 0) {
             this.days++;
@@ -36,9 +42,13 @@ export class GameRepository {
         this.validateData();
     }
 
-    public buyElement(element: PowerElement) {
+    public buyElement(element: PowerElement | PipeElement) {
         if (this.coins >= element.price) {
             this.coins -= element.price;
+        }
+
+        if(element instanceof PipeElement) {
+            element.upgrade();
         }
     }
 
@@ -102,10 +112,27 @@ export class GameRepository {
         this.powerDelivered = Math.max(0, this.powerDelivered);
         this.powerNeeded = Math.max(0, this.powerNeeded);
 
+        const hudRepo: HudRepository = HudRepository.getInstance();
+
+        hudRepo.setVisualCoins(this.coins);
+        hudRepo.setVisualTime(this.time);
+        hudRepo.setVisualPowerDelivered(this.powerDelivered);
+        hudRepo.setVisualPowerNeeded(this.powerNeeded);
+        hudRepo.setVisualDays(this.days);
+        hudRepo.setVisualCitizens(this.numberCitizens);
+        this.powerNeeded = Math.round(this.powerNeeded);
+        this.powerDelivered = Math.round(this.powerDelivered);
+        this.coins = Math.round(this.coins);
+        this.time = Math.round(this.time);
+        this.days = Math.round(this.days);
+        this.numberCitizens = Math.round(this.numberCitizens);
+
         HudRepository.getInstance().setVisualCoins(this.coins);
         HudRepository.getInstance().setVisualTime(this.time);
         HudRepository.getInstance().setVisualPowerDelivered(this.powerDelivered);
-        HudRepository.getInstance().setVisualPowerNeeded(this.powerNeeded);
+        if (this.maxPowerNeeded != 0) {
+            HudRepository.getInstance().setVisualPowerNeeded(this.powerNeeded * 120 / this.maxPowerNeeded );
+        }
         HudRepository.getInstance().setVisualDays(this.days);
         HudRepository.getInstance().setVisualCitizens(this.numberCitizens);
     }
