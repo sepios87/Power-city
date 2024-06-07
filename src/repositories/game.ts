@@ -1,4 +1,5 @@
 import { GameMap } from "../entities/gameMap";
+import { HubRepository } from "./hub";
 
 export class GameRepository {
 
@@ -93,5 +94,12 @@ export class GameRepository {
         this.numberCitizens = Math.max(0, this.numberCitizens);
         this.powerDelivered = Math.max(0, this.powerDelivered);
         this.powerNeeded = Math.max(0, this.powerNeeded);
+
+        HubRepository.getInstance().setVisualCoins(this.coins);
+        HubRepository.getInstance().setVisualTime(this.time);
+        HubRepository.getInstance().setVisualPowerDelivered(this.powerDelivered);
+        HubRepository.getInstance().setVisualPowerNeeded(this.powerNeeded);
+        HubRepository.getInstance().setVisualDays(this.days);
+        HubRepository.getInstance().setVisualCitizens(this.numberCitizens);
     }
 }
