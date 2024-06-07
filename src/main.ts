@@ -35,12 +35,26 @@ window.addEventListener("load", function () {
 });
 
 function init() {
+<<<<<<< HEAD
   try {
     console.log("Initializing game");
     const map = new GameMap(10, 10);
     const mapElement = document.getElementById("map");
     if (mapElement) {
       mapGridElement = generateMap(map, mapElement, onClickCellMap);
+=======
+    try {
+        console.log("Initializing game");
+        const map = new GameMap(35, 10);
+        const mapElement = document.getElementById("map");
+        if (mapElement) {
+            mapGridElement = generateMap(map, mapElement, onClickCellMap);
+        }
+        gameRepository = new GameRepository(0, map);
+        generateItems();
+    } catch (error) {
+        console.error(error);
+>>>>>>> feature/design-map
     }
     gameRepository = new GameRepository(0, map);
     const pipeElement = document.getElementById("pipe");

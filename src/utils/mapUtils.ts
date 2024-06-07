@@ -4,8 +4,10 @@ import { PowerElement } from "../entities/powerElement";
 function generateMap(map: GameMap, element: HTMLElement, onClickCell: (x: number, y: number) => void): HTMLElement {
     const mapGrid = document.createElement("div");
     mapGrid.style.display = "grid";
+    mapGrid.style.width = "100%";
+    mapGrid.style.height = "100%";
     mapGrid.style.gridTemplateColumns = `repeat(${map.width}, 1fr)`;
-    mapGrid.style.gridTemplateRows = `repeat(${map.height}, 50px)`;
+    mapGrid.style.gridTemplateRows = `repeat(${map.height}, 1fr)`;
 
     const itemsMapGrid = mapGrid.cloneNode(true) as HTMLElement;
     itemsMapGrid.style.position = "absolute";
@@ -21,7 +23,7 @@ function generateMap(map: GameMap, element: HTMLElement, onClickCell: (x: number
     for (let i = 0; i < map.width; i++) {
         for (let j = 0; j < map.height; j++) {
             const cell = document.createElement("div");
-            cell.style.border = "1px solid black";
+            cell.className = "map__cell";
             cell.addEventListener("click", () => onClickCell(i, j));
             mapGrid.appendChild(cell);
         }

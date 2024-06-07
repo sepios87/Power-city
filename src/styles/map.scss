@@ -1,0 +1,20 @@
+@import './variable.scss';
+
+#map{
+    width: 94vw;
+    padding: 10px;
+    background-color: white;
+    margin: 1vh 3vw;
+    height: 50vh;
+    border-radius: 20px;
+}
+
+.map__cell{
+    border-radius: 5px;
+    background-color: $color-green;
+    margin: 2px;
+
+    &--agua{
+        background-color: $color-blue;
+    }
+}
