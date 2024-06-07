@@ -1,5 +1,5 @@
 import { GameMap } from "../entities/gameMap";
-import { HubRepository } from "./hub";
+import { HudRepository } from "./hud";
 import { PowerElement } from "../entities/powerElement";
 
 export class GameRepository {

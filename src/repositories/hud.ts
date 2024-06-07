@@ -1,17 +1,17 @@
 
-export class HubRepository {
+export class HudRepository {
 
-    private static instance: HubRepository;
+    private static instance: HudRepository;
 
     private constructor() {
     }
 
     // Méthode statique pour obtenir l'instance
-    public static getInstance(): HubRepository {
-        if (!HubRepository.instance) {
-            HubRepository.instance = new HubRepository();
+    public static getInstance(): HudRepository {
+        if (!HudRepository.instance) {
+            HudRepository.instance = new HudRepository();
         }
-        return HubRepository.instance;
+        return HudRepository.instance;
     }
 
     // Set visual coins

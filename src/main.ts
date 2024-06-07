@@ -1,6 +1,6 @@
 import { GameMap } from "./entities/gameMap";
 import { GameRepository } from "./repositories/game";
-import { HubRepository } from "./repositories/hub";
+import { HubRepository } from "./repositories/hud";
 import { addItemOnMap, generateMap } from "./utils/mapUtils";
 
 import "/src/styles/reset.css";
