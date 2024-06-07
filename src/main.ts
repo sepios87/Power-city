@@ -38,7 +38,7 @@ window.addEventListener("load", function () {
 function init() {
   try {
     console.log("Initializing game");
-    const map = new GameMap(35, 10);
+    const map = new GameMap(25, 10);
     const mapElement = document.getElementById("map");
     if (mapElement) {
       mapGridElement = generateMap(map, mapElement, onClickCellMap);
