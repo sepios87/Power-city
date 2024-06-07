@@ -1,0 +1,40 @@
+
+
+@mixin progressBar($color) {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    row-gap: 10px;
+
+    width: 100%;
+
+    &__img{
+        width: 30px;
+        height: 30px;
+    }
+
+    &__value{
+        font-size: 24px;
+        color: #000;
+    }
+    &__figcaption{
+        width: 90%;
+    }
+
+    &__progress{
+        width: 80%;
+        background-color: transparent;
+        border: 1px solid #000;
+        
+        &::-webkit-progress-value {
+            background-color: $color;
+        }
+        &::-moz-progress-bar {
+            background-color: $color;
+        }
+        &::-ms-fill {
+            background-color: $color;
+        }
+    }
+}
