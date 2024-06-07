@@ -45,18 +45,20 @@ export class GameRepository {
     public buyElement(element: PowerElement | PipeElement) {
         if (this.coins >= element.price) {
             this.coins -= element.price;
+        } else {
+            console.log("Vous n'avez pas assez de pièces pour acheter cet élément.");
         }
     }
 
     private calculatePowerNeeded() {
         const basePowerNeeded = this.calculateBasePowerNeeded();
         const randomFluctuation = this.calculateRandomFluctuation();
-        const powerNeeded = basePowerNeeded * this.hourlyFluctuation * randomFluctuation;
+        const powerNeeded = basePowerNeeded * this.hourlyFluctuation * randomFluctuation * 0.1; // réduire la demande d'énergie
         
         if (this.hourlyFluctuation === 1.2) {
             this.maxPowerNeeded = Math.max(this.maxPowerNeeded, powerNeeded);
         }
-
+    
         return powerNeeded;
     }
 
