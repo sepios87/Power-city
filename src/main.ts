@@ -6,6 +6,7 @@ import { addItemOnMap, generateMap } from "./utils/mapUtils";
 import "/src/styles/reset.css";
 import "/src/styles/style.scss";
 import "/src/styles/gameContext.scss";
+import "/src/styles/map.scss";
 import { CoalPlant, HydroTurbine, HydroelectricStation, NuclearPlant, PowerElement, SolarPanel, WindTurbine } from "./entities/powerElement";
 import { Position } from "./entities/position";
 
@@ -23,7 +24,7 @@ window.addEventListener("load", function () {
 function init() {
     try {
         console.log("Initializing game");
-        const map = new GameMap(10, 10);
+        const map = new GameMap(35, 10);
         const mapElement = document.getElementById("map");
         if (mapElement) {
             mapGridElement = generateMap(map, mapElement, onClickCellMap);
