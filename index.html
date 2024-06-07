@@ -1,13 +1,27 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Power City</title>
-  </head>
-  <body>
-    <div id="map"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power City</title>
+</head>
+
+<body>
+  <div id="map"></div>
+  <ul id="items"></ul>
+
+  <template id="item-template">
+    <li class="item">
+      <img class="item__img">
+      <div class="item-price">
+        <img class="item-price__icon" src="./public/assets/coins.png">
+        <p class="item-price__label"></p>
+      </div>
+    </li>
+  </template>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
