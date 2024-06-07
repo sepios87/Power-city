@@ -3,20 +3,17 @@ import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 
 export default [
-  {
-    languageOptions: { globals: globals.browser },
-    rules: {
-      "no-unused-vars": "off",
-      "no-undef": "off",
-      "no-redeclare": "off",
-      "no-undef-init": "off",
-      "no-shadow": "off",
-      "no-shadow-restricted-names": "off",
-      "no-unused-expressions": "off",
-      "no-use-before-define": "off",
-      "no-restricted-globals": "off",
+    {
+        languageOptions: { globals: globals.browser },
+        rules: {
+            "no-unused-vars": "warn",
+            "no-console": "off",
+            "indent": ["error", 4],
+            "linebreak-style": ["error", "unix"],
+            "quotes": ["error", "double"],
+            "semi": ["error", "always"],
+        },
     },
-  },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
+    pluginJs.configs.recommended,
+    ...tseslint.configs.recommended,
 ];
