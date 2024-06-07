@@ -6,6 +6,7 @@ import "/src/styles/reset.css";
 import "/src/styles/style.scss";
 import "/src/styles/gameContext.scss";
 import { CoalPlant, HydroTurbine, HydroelectricStation, NuclearPlant, PowerElement, SolarPanel, WindTurbine } from "./entities/powerElement";
+import { Position } from "./entities/position";
 
 const showItems: PowerElement[] = [new WindTurbine, new NuclearPlant, new SolarPanel, new HydroelectricStation, new HydroTurbine, new CoalPlant];
 
@@ -83,6 +84,8 @@ function onClickCellMap(x: number, y: number) {
         console.log("Clicked cell", x, y);
         addItemOnMap(x, y, mapGridElement, selectedElement);
         unselectItem();
+        gameRepository.map.elements.set(new Position(x, y), selectedElement);
+        gameRepository.buyElement(selectedElement);
     }
 }
 
