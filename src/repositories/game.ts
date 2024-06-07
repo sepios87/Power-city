@@ -1,5 +1,6 @@
 import { GameMap } from "../entities/gameMap";
 import { HubRepository } from "./hub";
+import { PowerElement } from "../entities/powerElement";
 
 export class GameRepository {
 
@@ -33,6 +34,12 @@ export class GameRepository {
         this.powerDelivered = Math.min(powerGenerated, this.powerNeeded);
         this.coins -= this.powerDelivered / 10;
         this.validateData();
+    }
+
+    public buyElement(element: PowerElement) {
+        if (this.coins >= element.price) {
+            this.coins -= element.price;
+        }
     }
 
     private calculatePowerNeeded() {
