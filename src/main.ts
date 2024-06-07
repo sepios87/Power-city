@@ -5,56 +5,80 @@ import { addItemOnMap, checkCollision, generateMap } from "./utils/mapUtils";
 import "/src/styles/reset.css";
 import "/src/styles/style.scss";
 import "/src/styles/gameContext.scss";
-import { CoalPlant, HydroTurbine, HydroelectricStation, NuclearPlant, PowerElement, SolarPanel, WindTurbine } from "./entities/powerElement";
+import {
+  CoalPlant,
+  HydroTurbine,
+  HydroelectricStation,
+  NuclearPlant,
+  PowerElement,
+  SolarPanel,
+  WindTurbine,
+} from "./entities/powerElement";
 import { Position } from "./entities/position";
 
-const showItems: PowerElement[] = [new WindTurbine, new NuclearPlant, new SolarPanel, new HydroelectricStation, new HydroTurbine, new CoalPlant];
+const showItems: PowerElement[] = [
+  new WindTurbine(),
+  new NuclearPlant(),
+  new SolarPanel(),
+  new HydroelectricStation(),
+  new HydroTurbine(),
+  new CoalPlant(),
+];
 
 let gameRepository: GameRepository;
 let selectedElement: PowerElement | null = null;
 let mapGridElement: HTMLElement | null = null;
 
 window.addEventListener("load", function () {
-    onListenMouseMove();
-    init();
+  onListenMouseMove();
+  init();
 });
 
 function init() {
-    try {
-        console.log("Initializing game");
-        const map = new GameMap(10, 10);
-        const mapElement = document.getElementById("map");
-        if (mapElement) {
-            mapGridElement = generateMap(map, mapElement, onClickCellMap);
-        }
-        gameRepository = new GameRepository(0, map);
-        generateItems();
-    } catch (error) {
-        console.error(error);
+  try {
+    console.log("Initializing game");
+    const map = new GameMap(10, 10);
+    const mapElement = document.getElementById("map");
+    const pipeElement = document.getElementById("pipe")?.addEventListener("click", () => {
+        unselectItem();
+        onClickItem(new PipeElement());
+    });
+    if (mapElement) {
+      mapGridElement = generateMap(map, mapElement, onClickCellMap);
     }
+    gameRepository = new GameRepository(0, map);
+    generateItems();
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function generateItems() {
-    const items = document.getElementById("items");
-    const itemTemplate = document.getElementById("item-template") as HTMLTemplateElement;
-    if (items && itemTemplate) {
-        for (const itemShow of showItems) {
-            const item = itemTemplate.content.cloneNode(true) as HTMLElement;
-            const itemImg = item.querySelector(".item__img");
-            if (itemImg) itemImg.setAttribute("src", itemShow.img);
-            const itemPrice = item.querySelector(".item-price__label");
-            if (itemPrice) itemPrice.innerHTML = itemShow.price.toString();
-            item.firstElementChild?.addEventListener("click", () => onClickItem(itemShow));
-            items.appendChild(item);
-        }
+  const items = document.getElementById("items");
+  const itemTemplate = document.getElementById(
+    "item-template"
+  ) as HTMLTemplateElement;
+  if (items && itemTemplate) {
+    for (const itemShow of showItems) {
+      const item = itemTemplate.content.cloneNode(true) as HTMLElement;
+      const itemImg = item.querySelector(".item__img");
+      if (itemImg) itemImg.setAttribute("src", itemShow.img);
+      const itemPrice = item.querySelector(".item-price__label");
+      if (itemPrice) itemPrice.innerHTML = itemShow.price.toString();
+      item.firstElementChild?.addEventListener("click", () =>
+        onClickItem(itemShow)
+      );
+      items.appendChild(item);
     }
+  }
 }
 
-function onClickItem(item: PowerElement) {
-    console.log("Clicked item", item);
+function onClickItem(item: PowerElement | PipeElement) {
+  console.log("Clicked item", item);
 
+  if (item instanceof PowerElement) {
     unselectItem();
-    
+
     selectedElement = item;
     const img = document.createElement("img");
     img.id = "selected-item";
@@ -69,34 +93,48 @@ function onClickItem(item: PowerElement) {
     img.style.userSelect = "none";
     img.style.pointerEvents = "none";
     document.body.appendChild(img);
+  } else {
+    item.upgrade();
+  }
 }
 
 function onListenMouseMove() {
-    document.addEventListener("mousemove", (event) => {
-        document.documentElement.style.setProperty("--cursor-x", String(event.clientX));
-        document.documentElement.style.setProperty("--cursor-y", String(event.clientY));
-    });
+  document.addEventListener("mousemove", (event) => {
+    document.documentElement.style.setProperty(
+      "--cursor-x",
+      String(event.clientX)
+    );
+    document.documentElement.style.setProperty(
+      "--cursor-y",
+      String(event.clientY)
+    );
+  });
 }
 
 function onClickCellMap(x: number, y: number) {
+  console.log("Clicked cell", x, y);
+  if (selectedElement && mapGridElement) {
     console.log("Clicked cell", x, y);
-    if (selectedElement && mapGridElement) {
-        console.log("Clicked cell", x, y);
-        const isCollision = checkCollision(x, y, gameRepository.map, selectedElement);
-        if (isCollision) {
-            console.log("Collision detected");
-            return;
-        }
-        console.log(checkCollision(x, y, gameRepository.map, selectedElement));
-        addItemOnMap(x, y, mapGridElement, selectedElement);
-        gameRepository.map.elements.set(new Position(x, y), selectedElement);
-        gameRepository.buyElement(selectedElement);
-        unselectItem();
+    const isCollision = checkCollision(
+      x,
+      y,
+      gameRepository.map,
+      selectedElement
+    );
+    if (isCollision) {
+      console.log("Collision detected");
+      return;
     }
+    console.log(checkCollision(x, y, gameRepository.map, selectedElement));
+    addItemOnMap(x, y, mapGridElement, selectedElement);
+    gameRepository.map.elements.set(new Position(x, y), selectedElement);
+    gameRepository.buyElement(selectedElement);
+    unselectItem();
+  }
 }
 
 function unselectItem() {
-    selectedElement = null;
-    const alreadySelectedItem = document.getElementById("selected-item");
-    if (alreadySelectedItem) alreadySelectedItem.remove();
+  selectedElement = null;
+  const alreadySelectedItem = document.getElementById("selected-item");
+  if (alreadySelectedItem) alreadySelectedItem.remove();
 }

@@ -39,9 +39,13 @@ export class GameRepository {
         this.validateData();
     }
 
-    public buyElement(element: PowerElement) {
+    public buyElement(element: PowerElement | PipeElement) {
         if (this.coins >= element.price) {
             this.coins -= element.price;
+        }
+
+        if(element instanceof PipeElement) {
+            element.upgrade();
         }
     }
 
@@ -105,11 +109,13 @@ export class GameRepository {
         this.powerDelivered = Math.max(0, this.powerDelivered);
         this.powerNeeded = Math.max(0, this.powerNeeded);
 
-        HudRepository.getInstance().setVisualCoins(this.coins);
-        HudRepository.getInstance().setVisualTime(this.time);
-        HudRepository.getInstance().setVisualPowerDelivered(this.powerDelivered);
-        HudRepository.getInstance().setVisualPowerNeeded(this.powerNeeded);
-        HudRepository.getInstance().setVisualDays(this.days);
-        HudRepository.getInstance().setVisualCitizens(this.numberCitizens);
+        const hudRepo: HudRepository = HudRepository.getInstance();
+
+        hudRepo.setVisualCoins(this.coins);
+        hudRepo.setVisualTime(this.time);
+        hudRepo.setVisualPowerDelivered(this.powerDelivered);
+        hudRepo.setVisualPowerNeeded(this.powerNeeded);
+        hudRepo.setVisualDays(this.days);
+        hudRepo.setVisualCitizens(this.numberCitizens);
     }
 }
