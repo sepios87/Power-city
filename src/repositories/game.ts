@@ -1,4 +1,6 @@
-class GameRepository {
+import { GameMap } from "../entities/gameMap";
+
+export class GameRepository {
     constructor(public coins: number, public map: GameMap) { }
     public days: number = 0;
     public time: number = 0;

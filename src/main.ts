@@ -1,18 +1,26 @@
+import { GameMap } from "./entities/gameMap";
+import { GameRepository } from "./repositories/game";
+import { generateMap } from "./utils/mapUtils";
+
 import "/src/styles/reset.css";
 import "/src/styles/style.scss";
 
 let gameRepository: GameRepository;
 
 window.addEventListener("load", function () {
-    console.log("Hello World!");
     init();
 });
 
 function init() {
-    const map = new GameMap(10, 10);
-    const mapElement = document.getElementById("map");
-    if (mapElement) {
-        generateMap(map, document.getElementById("map")!);
+    try {
+        console.log("Initializing game");
+        const map = new GameMap(10, 10);
+        const mapElement = document.getElementById("map");
+        if (mapElement) {
+            generateMap(map, mapElement);
+        }
+        gameRepository = new GameRepository(0, map);
+    } catch (error) {
+        console.error(error);
     }
-    gameRepository = new GameRepository(0, map);
 }
