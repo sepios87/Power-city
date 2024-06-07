@@ -102,11 +102,11 @@ export class GameRepository {
         this.powerDelivered = Math.max(0, this.powerDelivered);
         this.powerNeeded = Math.max(0, this.powerNeeded);
 
-        HubRepository.getInstance().setVisualCoins(this.coins);
-        HubRepository.getInstance().setVisualTime(this.time);
-        HubRepository.getInstance().setVisualPowerDelivered(this.powerDelivered);
-        HubRepository.getInstance().setVisualPowerNeeded(this.powerNeeded);
-        HubRepository.getInstance().setVisualDays(this.days);
-        HubRepository.getInstance().setVisualCitizens(this.numberCitizens);
+        HudRepository.getInstance().setVisualCoins(this.coins);
+        HudRepository.getInstance().setVisualTime(this.time);
+        HudRepository.getInstance().setVisualPowerDelivered(this.powerDelivered);
+        HudRepository.getInstance().setVisualPowerNeeded(this.powerNeeded);
+        HudRepository.getInstance().setVisualDays(this.days);
+        HudRepository.getInstance().setVisualCitizens(this.numberCitizens);
     }
 }
