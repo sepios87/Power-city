@@ -6,6 +6,7 @@ abstract class PowerElement {
     public abstract name: string;
     public abstract size: Size;
     public abstract isAquatic: boolean;
+    public abstract img: string;
 }
 
 class WindTurbine extends PowerElement {
@@ -14,6 +15,7 @@ class WindTurbine extends PowerElement {
     public name: string = "Wind Turbine";
     public size: Size = new Size(1, 1);
     public isAquatic: boolean = false;
+    public img: string = "/assets/wind-turbine.png";
 }
 
 class NuclearPlant extends PowerElement {
@@ -22,6 +24,7 @@ class NuclearPlant extends PowerElement {
     public name: string = "Nuclear Plant";
     public size: Size = new Size(2, 2);
     public isAquatic: boolean = false;
+    public img: string = "/assets/nuclear-plant.png";
 }
 
 class SolarPanel extends PowerElement {
@@ -30,6 +33,7 @@ class SolarPanel extends PowerElement {
     public name: string = "Solar Panel";
     public size: Size = new Size(1, 1);
     public isAquatic: boolean = false;
+    public img: string = "/assets/solar-panel.png";
 }
 
 class HydroelectricStation extends PowerElement {
@@ -38,6 +42,7 @@ class HydroelectricStation extends PowerElement {
     public name: string = "Hydroelectric Station";
     public size: Size = new Size(2, 2);
     public isAquatic: boolean = true;
+    public img: string = "/assets/hydroelectric.png";
 }
 
 class HydroTurbine extends PowerElement {
@@ -46,6 +51,7 @@ class HydroTurbine extends PowerElement {
     public name: string = "Hydro Turbin";
     public size: Size = new Size(1, 1);
     public isAquatic: boolean = true;
+    public img: string = "/assets/hydro-turbine.png";
 }
 
 class CoalPlant extends PowerElement {
@@ -54,6 +60,7 @@ class CoalPlant extends PowerElement {
     public name: string = "Coal Plant";
     public size: Size = new Size(2, 2);
     public isAquatic: boolean = false;
+    public img: string = "/assets/coal-plant.png";
 }
 
 export { PowerElement, WindTurbine, NuclearPlant, SolarPanel, HydroelectricStation, HydroTurbine, CoalPlant };
