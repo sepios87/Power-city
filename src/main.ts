@@ -1,7 +1,6 @@
 import { GameMap } from "./entities/gameMap";
 import { GameRepository } from "./repositories/game";
-import { HudRepository } from "./repositories/hud";
-import { addItemOnMap, generateMap } from "./utils/mapUtils";
+import { addItemOnMap, checkCollision, generateMap } from "./utils/mapUtils";
 
 import "/src/styles/reset.css";
 import "/src/styles/style.scss";
@@ -83,10 +82,16 @@ function onClickCellMap(x: number, y: number) {
     console.log("Clicked cell", x, y);
     if (selectedElement && mapGridElement) {
         console.log("Clicked cell", x, y);
+        const isCollision = checkCollision(x, y, gameRepository.map, selectedElement);
+        if (isCollision) {
+            console.log("Collision detected");
+            return;
+        }
+        console.log(checkCollision(x, y, gameRepository.map, selectedElement));
         addItemOnMap(x, y, mapGridElement, selectedElement);
-        unselectItem();
         gameRepository.map.elements.set(new Position(x, y), selectedElement);
         gameRepository.buyElement(selectedElement);
+        unselectItem();
     }
 }
 

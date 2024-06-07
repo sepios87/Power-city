@@ -18,9 +18,12 @@ export class GameRepository {
     public constructor(coins: number, map: GameMap) {
         this.coins = coins;
         this.map = map;
+
+        setInterval(() => this.incrementHour(), 200);
     }
 
     public incrementHour() {
+        console.log("Incrementing hour");
         this.time = (this.time + 1) % 24;
         if (this.time === 0) {
             this.days++;

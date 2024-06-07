@@ -36,15 +36,30 @@ function generateMap(map: GameMap, element: HTMLElement, onClickCell: (x: number
 function addItemOnMap(x: number, y: number, mapGridElement: HTMLElement, selectedElement: PowerElement) {
     console.log("Adding item on map", x, y, selectedElement);
     const item = document.createElement("div");
-    item.style.gridRow = `${x+ 1}`;
-    item.style.gridColumn = `${y + 1}`;
+    item.style.gridRow = `${x+ 1} / span ${selectedElement.size.height}`;
+    item.style.gridColumn = `${y + 1} / span ${selectedElement.size.width}`;
     item.style.backgroundImage = `url(${selectedElement.img})`;
     item.style.backgroundSize = "contain";
     item.style.backgroundRepeat = "no-repeat",
     item.style.backgroundPosition = "center";
+    item.style.backgroundColor = "rgba(0, 0, 0, 0.3)";
 
     // get element parent
     mapGridElement?.appendChild(item);
 }
 
-export { generateMap, addItemOnMap };
+function checkCollision(x: number, y: number, map: GameMap, selectedItem: PowerElement): boolean {
+    for (const itemPosition of map.elements.keys()) {
+       const item = map.elements.get(itemPosition)!;
+       if (itemPosition.x < x + selectedItem.size.width &&
+           itemPosition.x + item.size.width > x &&
+           itemPosition.y < y + selectedItem.size.height &&
+           itemPosition.y + item.size.height > y) {
+               return true;
+           }
+    }
+
+    return false;
+}
+
+export { generateMap, addItemOnMap, checkCollision };
