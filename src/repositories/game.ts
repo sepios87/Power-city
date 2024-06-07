@@ -22,7 +22,7 @@ export class GameRepository {
         this.map = map;
         this.pipeElement = PipeElement.getInstance();
 
-        setInterval(() => this.incrementHour(), 3000);
+        setInterval(() => this.incrementHour(), 100);
     }
 
     public incrementHour() {
@@ -45,10 +45,6 @@ export class GameRepository {
     public buyElement(element: PowerElement | PipeElement) {
         if (this.coins >= element.price) {
             this.coins -= element.price;
-        }
-
-        if(element instanceof PipeElement) {
-            element.upgrade();
         }
     }
 
@@ -84,8 +80,20 @@ export class GameRepository {
     }
 
     private updateCitizens() {
-        const fluctuation = Math.random() * 0.20 - 0.05;
-        this.numberCitizens = Math.max(0, this.numberCitizens + Math.round(this.numberCitizens * fluctuation));
+        const fluctuationPercentage = Math.random() * 0.1; // fluctuation de 10%
+        let fluctuation = Math.round(this.numberCitizens * fluctuationPercentage);
+    
+        // Assurez-vous qu'au moins 1 citoyen arrive ou part
+        if (fluctuation === 0) {
+            fluctuation = 1;
+        }
+    
+        // 75% de chance de gagner des citoyens, 25% d'en perdre
+        if (Math.random() < 0.9) {
+            this.numberCitizens += fluctuation;
+        } else {
+            this.numberCitizens = Math.max(0, this.numberCitizens - fluctuation);
+        }
     }
 
     public calculateCoins() {
