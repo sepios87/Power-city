@@ -22,7 +22,7 @@ export class GameRepository {
         this.map = map;
         this.pipeElement = PipeElement.getInstance();
 
-        setInterval(() => this.incrementHour(), 15000);
+        setInterval(() => this.incrementHour(), 3000);
     }
 
     public incrementHour() {
@@ -120,5 +120,20 @@ export class GameRepository {
         hudRepo.setVisualPowerNeeded(this.powerNeeded);
         hudRepo.setVisualDays(this.days);
         hudRepo.setVisualCitizens(this.numberCitizens);
+        this.powerNeeded = Math.round(this.powerNeeded);
+        this.powerDelivered = Math.round(this.powerDelivered);
+        this.coins = Math.round(this.coins);
+        this.time = Math.round(this.time);
+        this.days = Math.round(this.days);
+        this.numberCitizens = Math.round(this.numberCitizens);
+
+        HudRepository.getInstance().setVisualCoins(this.coins);
+        HudRepository.getInstance().setVisualTime(this.time);
+        HudRepository.getInstance().setVisualPowerDelivered(this.powerDelivered);
+        if (this.maxPowerNeeded != 0) {
+            HudRepository.getInstance().setVisualPowerNeeded(this.powerNeeded * 120 / this.maxPowerNeeded );
+        }
+        HudRepository.getInstance().setVisualDays(this.days);
+        HudRepository.getInstance().setVisualCitizens(this.numberCitizens);
     }
 }
