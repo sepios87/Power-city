@@ -20,11 +20,11 @@ function generateMap(map: GameMap, element: HTMLElement, onClickCell: (x: number
     itemsMapGrid.id = "items-grid";
     element.style.position = "relative";
 
-    for (let i = 0; i < map.width; i++) {
-        for (let j = 0; j < map.height; j++) {
+    for (let i = 0; i < map.height; i++) {
+        for (let j = 0; j < map.width; j++) {
             const cell = document.createElement("div");
             cell.className = "map__cell";
-            cell.addEventListener("click", () => onClickCell(i, j));
+            cell.addEventListener("click", () => onClickCell(i + 1, j + 1));
             mapGrid.appendChild(cell);
         }
     }
@@ -38,8 +38,8 @@ function generateMap(map: GameMap, element: HTMLElement, onClickCell: (x: number
 function addItemOnMap(x: number, y: number, mapGridElement: HTMLElement, selectedElement: PowerElement) {
     console.log("Adding item on map", x, y, selectedElement);
     const item = document.createElement("div");
-    item.style.gridRow = `${x+ 1} / span ${selectedElement.size.height}`;
-    item.style.gridColumn = `${y + 1} / span ${selectedElement.size.width}`;
+    item.style.gridRow = `${x} / span ${selectedElement.size.height}`;
+    item.style.gridColumn = `${y} / span ${selectedElement.size.width}`;
     item.style.backgroundImage = `url(${selectedElement.img})`;
     item.style.backgroundSize = "contain";
     item.style.backgroundRepeat = "no-repeat",
