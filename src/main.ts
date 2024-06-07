@@ -43,7 +43,7 @@ function init() {
     if (mapElement) {
       mapGridElement = generateMap(map, mapElement, onClickCellMap);
     }
-    gameRepository = new GameRepository(0, map);
+    gameRepository = new GameRepository(100, map);
     const pipeElement = document.getElementById("pipe");
     if (pipeElement) {
       pipeElement.addEventListener("click", () => {
@@ -125,10 +125,11 @@ function onClickCellMap(x: number, y: number) {
       return;
     }
     console.log(checkCollision(x, y, gameRepository.map, selectedElement));
-    addItemOnMap(x, y, mapGridElement, selectedElement);
-    gameRepository.map.elements.set(new Position(x, y), selectedElement);
-    gameRepository.buyElement(selectedElement);
-    unselectItem();
+    if (gameRepository.buyElement(selectedElement)) {
+      addItemOnMap(x, y, mapGridElement, selectedElement);
+      gameRepository.map.elements.set(new Position(x, y), selectedElement);
+      unselectItem();
+    }
   }
 }
 

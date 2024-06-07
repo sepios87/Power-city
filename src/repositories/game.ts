@@ -5,9 +5,7 @@ import PipeElement from "../entities/pipe";
 
 export class GameRepository {
 
-    public coins: number = 0;
     public strikeCounter: number = 0;
-    public map: GameMap;
     public days: number = 0;
     public time: number = 0;
     public powerDelivered: number = 0;
@@ -17,9 +15,7 @@ export class GameRepository {
     private hourlyFluctuation: number = 1;
     public pipeElement: PipeElement;
 
-    public constructor(coins: number, map: GameMap) {
-        this.coins = coins;
-        this.map = map;
+    public constructor(public coins: number, public map: GameMap) {
         this.pipeElement = PipeElement.getInstance();
 
         setInterval(() => this.incrementHour(), 3000);
@@ -43,10 +39,12 @@ export class GameRepository {
     }
 
     public buyElement(element: PowerElement | PipeElement) {
+        console.log("Buying element", element.price, this.coins);
         if (this.coins >= element.price) {
             this.coins -= element.price;
+            return true;
         } else {
-            console.log("Vous n'avez pas assez de pièces pour acheter cet élément.");
+            return false;
         }
     }
 
