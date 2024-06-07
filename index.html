@@ -10,7 +10,6 @@
 
 <body>
   <div id="map"></div>
-  <ul id="items"></ul>
 
   <template id="item-template">
     <li class="item">
@@ -21,6 +20,49 @@
       </div>
     </li>
   </template>
+
+
+  <main class="main">
+    <section class="game-context">
+      <figure class="power">
+        <img src="/assets/power.png" class="power__img">
+        <figcaption class="power__figcaption">
+          <progress value="0" max="100" class="power__progress" id="progress-bar-power"></progress> <span class="power__value" id="value-power">0</span>
+        </figcaption>
+      </figure>
+
+      <figure class="power-needed">
+        <img src="/assets/power-needed.png" class="power-needed__img">
+        <figcaption class="power-needed__figcaption">
+          <progress value="0" max="100" class="power-needed__progress" id="progress-bar-power-needed"></progress> <span class="power-needed__value" id="value-power-needed">0</span>
+        </figcaption>
+      </figure>
+
+      <div class="game-datas-container">
+        <ul class="game-datas">
+          <li class="game-data">
+            <img src="/assets/time.png" alt="time" class="game-data__img">
+            <span class="game-data__value" id="game-data-time">0h</span>
+          </li>
+          <li class="game-data">
+            <img src="/assets/days.png" alt="days" class="game-data__img">
+            <span class="game-data__value" id="game-data-days">0j</span>
+          </li>
+          <li class="game-data">
+            <img src="/assets/coins.png" alt="coins" class="game-data__img">
+            <span class="game-data__value" id="game-data-coins">100</span>
+          </li>
+          <li class="game-data">
+            <img src="/assets/number-citizens.png" alt="number citizens" class="game-data__img">
+            <span class="game-data__value" id="game-data-number-citizens">10</span>
+          </li>
+        </ul>
+        <ul id="items" class="items"></ul>
+      </div>
+    </section>
+    <img class="">
+  </main>
+
   <script type="module" src="/src/main.ts"></script>
 </body>
 

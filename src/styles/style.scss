@@ -1,3 +1,13 @@
+@import './variable.scss';
+
 body {
-    background-color: #E5F9FF;
+    background-color: $color-lightblue;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.main{
+    display: flex;
+    justify-content: space-between; 
+    width: 100vw;
+    max-height: 50vh;
 }
