@@ -22,7 +22,7 @@ export class GameRepository {
         this.map = map;
         this.pipeElement = PipeElement.getInstance();
 
-        setInterval(() => this.incrementHour(), 100);
+        setInterval(() => this.incrementHour(), 3000);
     }
 
     public incrementHour() {

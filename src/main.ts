@@ -5,6 +5,7 @@ import { addItemOnMap, checkCollision, generateMap } from "./utils/mapUtils";
 import "/src/styles/reset.css";
 import "/src/styles/style.scss";
 import "/src/styles/gameContext.scss";
+import "/src/styles/map.scss";
 import {
   CoalPlant,
   HydroTurbine,
