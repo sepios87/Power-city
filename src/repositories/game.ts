@@ -1,6 +1,7 @@
 import { GameMap } from "../entities/gameMap";
 import { HudRepository } from "./hud";
 import { PowerElement } from "../entities/powerElement";
+import PipeElement from "../entities/pipe";
 
 export class GameRepository {
 
@@ -14,12 +15,14 @@ export class GameRepository {
     public maxPowerNeeded: number = 0;
     public numberCitizens: number = 10;
     private hourlyFluctuation: number = 1;
+    public pipeElement: PipeElement;
 
     public constructor(coins: number, map: GameMap) {
         this.coins = coins;
         this.map = map;
+        this.pipeElement = PipeElement.getInstance();
 
-        setInterval(() => this.incrementHour(), 200);
+        setInterval(() => this.incrementHour(), 15000);
     }
 
     public incrementHour() {

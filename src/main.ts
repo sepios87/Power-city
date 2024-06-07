@@ -38,15 +38,18 @@ function init() {
   try {
     console.log("Initializing game");
     const map = new GameMap(10, 10);
-    const mapElement = document.getElementById("map");
-    const pipeElement = document.getElementById("pipe")?.addEventListener("click", () => {
-        unselectItem();
-        onClickItem(new PipeElement());
-    });
+    const mapElement = document.getElementById("pipe");
     if (mapElement) {
       mapGridElement = generateMap(map, mapElement, onClickCellMap);
     }
     gameRepository = new GameRepository(0, map);
+    const pipeElement = document.getElementById("map");
+    if(pipeElement) {
+      pipeElement.addEventListener("click", () => {
+        console.log("Clicked pipe");
+        gameRepository.pipeElement.upgrade();
+      });
+    }
     generateItems();
   } catch (error) {
     console.error(error);
@@ -73,29 +76,24 @@ function generateItems() {
   }
 }
 
-function onClickItem(item: PowerElement | PipeElement) {
+function onClickItem(item: PowerElement) {
   console.log("Clicked item", item);
+  unselectItem();
 
-  if (item instanceof PowerElement) {
-    unselectItem();
-
-    selectedElement = item;
-    const img = document.createElement("img");
-    img.id = "selected-item";
-    img.src = item.img;
-    img.style.position = "fixed";
-    img.style.left = "calc(var(--cursor-x) * 1px)";
-    img.style.top = "calc(var(--cursor-y) * 1px)";
-    img.style.transform = "translate(-50%, -50%)";
-    img.style.width = "50px";
-    img.style.height = "50px";
-    img.style.zIndex = "1000";
-    img.style.userSelect = "none";
-    img.style.pointerEvents = "none";
-    document.body.appendChild(img);
-  } else {
-    item.upgrade();
-  }
+  selectedElement = item;
+  const img = document.createElement("img");
+  img.id = "selected-item";
+  img.src = item.img;
+  img.style.position = "fixed";
+  img.style.left = "calc(var(--cursor-x) * 1px)";
+  img.style.top = "calc(var(--cursor-y) * 1px)";
+  img.style.transform = "translate(-50%, -50%)";
+  img.style.width = "50px";
+  img.style.height = "50px";
+  img.style.zIndex = "1000";
+  img.style.userSelect = "none";
+  img.style.pointerEvents = "none";
+  document.body.appendChild(img);
 }
 
 function onListenMouseMove() {
