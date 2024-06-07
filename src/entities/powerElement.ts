@@ -1,3 +1,5 @@
+import { Size } from "./size";
+
 abstract class PowerElement {
     public abstract production: number;
     public abstract price: number;
@@ -53,3 +55,5 @@ class CoalPlant extends PowerElement {
     public size: Size = new Size(2, 2);
     public isAquatic: boolean = false;
 }
+
+export { PowerElement, WindTurbine, NuclearPlant, SolarPanel, HydroelectricStation, HydroTurbine, CoalPlant };
