@@ -10,5 +10,9 @@ window.addEventListener("load", function () {
 
 function init() {
     const map = new GameMap(10, 10);
+    const mapElement = document.getElementById("map");
+    if (mapElement) {
+        generateMap(map, document.getElementById("map")!);
+    }
     gameRepository = new GameRepository(0, map);
 }
