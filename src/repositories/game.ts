@@ -28,16 +28,16 @@ export class GameRepository {
         this.powerNeeded = this.calculatePowerNeeded();
         this.calculateCoins();
 
-        let powerGenerated = this.map.totalProduction;
+        const powerGenerated = this.map.totalProduction;
         this.powerDelivered = Math.min(powerGenerated, this.powerNeeded);
         this.coins -= this.powerDelivered / 10;
         this.validateData();
     }
 
     private calculatePowerNeeded() {
-        let basePowerNeeded = this.calculateBasePowerNeeded();
-        let randomFluctuation = this.calculateRandomFluctuation();
-        let powerNeeded = basePowerNeeded * this.hourlyFluctuation * randomFluctuation;
+        const basePowerNeeded = this.calculateBasePowerNeeded();
+        const randomFluctuation = this.calculateRandomFluctuation();
+        const powerNeeded = basePowerNeeded * this.hourlyFluctuation * randomFluctuation;
         
         if (this.hourlyFluctuation === 1.2) {
             this.maxPowerNeeded = Math.max(this.maxPowerNeeded, powerNeeded);
@@ -61,21 +61,21 @@ export class GameRepository {
     }
 
     private calculateRandomFluctuation() {
-        let fluctuation = Math.random() * 0.14 - 0.07;
+        const fluctuation = Math.random() * 0.14 - 0.07;
         return 1 + fluctuation;
     }
 
     private updateCitizens() {
-        let fluctuation = Math.random() * 0.20 - 0.05;
+        const fluctuation = Math.random() * 0.20 - 0.05;
         this.numberCitizens = Math.max(0, this.numberCitizens + Math.round(this.numberCitizens * fluctuation));
     }
 
     public calculateCoins() {
-        let powerNeeded = this.calculateBasePowerNeeded() * this.hourlyFluctuation * this.calculateRandomFluctuation();
-        let powerGenerated = this.map.totalProduction;
+        const powerNeeded = this.calculateBasePowerNeeded() * this.hourlyFluctuation * this.calculateRandomFluctuation();
+        const powerGenerated = this.map.totalProduction;
 
         if (powerGenerated >= powerNeeded * 0.85 && powerGenerated <= powerNeeded * 1.15) {
-            let coinsWon = 10 * Math.pow(1.1, this.days);
+            const coinsWon = 10 * Math.pow(1.1, this.days);
             this.coins += coinsWon;
 
             this.strikeCounter++;
