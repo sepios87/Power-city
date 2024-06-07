@@ -10,7 +10,6 @@
 
 <body>
   <div id="map"></div>
-  <ul id="items" class="items"></ul>
 
   <template id="item-template">
     <li class="item">
@@ -31,7 +30,7 @@
           <progress value="70" max="100" class="power__progress" id="progress-bar-power"></progress> <span class="power__value" id="value-power"> 30 </span>
         </figcaption>
       </figure>
-      
+
       <figure class="power-needed">
         <img src="/assets/power-needed.png" class="power-needed__img">
         <figcaption class="power-needed__figcaption">
@@ -39,7 +38,7 @@
         </figcaption>
       </figure>
 
-      <div>
+      <div class="game-datas-container">
         <ul class="game-datas">
           <li class="game-data">
             <img src="/assets/time.png" alt="time" class="game-data__img">
@@ -58,7 +57,7 @@
             <span class="game-data__value" id="game-data-number-citizens">10</span>
           </li>
         </ul>
-
+        <ul id="items" class="items"></ul>
       </div>
     </section>
     <img class="">
