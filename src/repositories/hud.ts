@@ -23,6 +23,8 @@ export class HudRepository {
     // Set visual coins
     public setVisualTime(times: number) {
         document.getElementById("game-data-time")!.innerText = `${times}h`;
+
+        this.setVisualImage(times); 
     }
 
     // setVisualPowerDelivered
@@ -51,4 +53,22 @@ export class HudRepository {
         document.getElementById("game-data-number-citizens")!.innerText = citizens.toString(); 
     }
 
+    // SetVisualImage
+    public setVisualImage(times: number) {
+        let img = "assets/night_city.png";
+
+        if(times < 6 ){
+            img = "assets/city/night_city.png";
+        }else if(times <= 10) {
+            img = "assets/city/morning_city.png";
+        } else if(times <= 18) {
+            img = "assets/city/day_city.png";
+        }else if(times <= 22) {
+            img = "assets/city/sunset_city.png";
+        }else{
+            img = "assets/city/night_city.png";
+        }
+
+        document.getElementById("image-village")!.setAttribute("src", img); 
+    }
 }

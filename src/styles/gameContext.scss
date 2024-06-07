@@ -79,3 +79,10 @@
 .power-needed{
     @include progressBar($color-red);
 }
+
+.image-village{
+    width: 45%;
+    height: 90%;
+    border-radius: 10px;
+    margin: 1%;
+}
