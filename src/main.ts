@@ -1,5 +1,6 @@
 import "/src/styles/reset.css";
 import "/src/styles/style.scss";
+import "/src/styles/gameContext.scss";
 
 let gameRepository: GameRepository;
 
